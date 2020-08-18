@@ -1,2 +1,2 @@
 # Packer
-Packer builds
+Packer templates for vmware
