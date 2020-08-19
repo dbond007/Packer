@@ -1,0 +1,25 @@
+#cloud-config
+autoinstall:
+    version: 1
+    locale: en_US
+    identity:
+        hostname: ubuntu2004
+        password: '$6$pA5HCSUd$IbgKt21U6sfPjNq80BDxCBuzwu/nD29r1Dc1qcLKtGP6H9G9ItnwaLLQqLH1gWK10O43l0fPeosr4WrF5Tc480'
+        username: packer
+    keyboard:
+        layout: "no"
+        variant: "nb"    
+    ssh:
+        install-server: true
+        allow-pw: true
+   # packages: 
+    #    - open-vm-tools
+    storage:
+        layout:
+            name: direct
+        swap:
+            size: 0
+    user-data:
+        package_upgrade: false
+        timezone: Europe/Oslo
+        disable_root: false
