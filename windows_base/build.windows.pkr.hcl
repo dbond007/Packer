@@ -1,7 +1,7 @@
 build {
   name = "windows"
   description = <<EOF
-This build creates ubuntu images for windows versions :
+This build creates windows images for windows versions :
 * 2019 Standard
 * 2019 Standard Core
 For the following builers :
@@ -49,7 +49,7 @@ EOF
         ]
 
     }
-
+    
     provisioner "powershell" {
         scripts           = fileset(".", "etc/scripts/*.ps1")
     }
