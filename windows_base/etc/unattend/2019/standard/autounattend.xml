@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>nb-NO</InputLocale>
+            <SystemLocale>nb-NO</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>nb-NO</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserData>
+                <ProductKey>
+                    <Key>N69G4-B89J2-4G8F4-WWYCC-J464C</Key>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+                <Organization>Test</Organization>
+                <FullName>test</FullName>
+            </UserData>
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows Server 2019 SERVERSTANDARD</Value>
+                        </MetaData>
+                    </InstallFrom>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>3</PartitionID>
+                    </InstallTo>
+                </OSImage>
+            </ImageInstall>
+             <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>Install pvscsi drivers for vmware</Description>
+                    <Order>1</Order>
+                    <Path>a:\installdrivers.cmd</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>Create Disk Partition Layout with diskpart, as unattend doesnt allow cluster size settings</Description>
+                    <Order>2</Order>
+                    <Path>a:\CreatePartitions.cmd</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>N0tS3cUr3</Value>
+                    <PlainText>true</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+            <AutoLogon>
+                <Password>
+                    <Value>N0tS3cUr3</Value>
+                    <PlainText>true</PlainText>
+                </Password>
+                <LogonCount>2</LogonCount>
+                <Username>Administrator</Username>
+                <Enabled>true</Enabled>
+            </AutoLogon>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Description>Install VMware tools</Description>
+                    <CommandLine>cmd.exe /c a:\install-Software-VM-Tools.cmd</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                 <SynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Description>Perform post OS install tasks</Description>
+                    <CommandLine>cmd.exe /c a:\post-install.cmd</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim://admts01s/temp/server%202019/sources/install.wim#Windows Server 2019 SERVERSTANDARDCORE" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

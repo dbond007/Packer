@@ -1,0 +1,26 @@
+rem == CreatePartitions-UEFI.txt ==
+rem == These commands are used with DiskPart to
+rem    create three partitions
+rem    for a UEFI/GPT-based PC.  ==
+
+select disk 0
+clean
+convert gpt
+
+rem == 1. System partition =========================
+create partition efi size=260
+format quick fs=fat32 label="System"
+
+rem == 2. Microsoft Reserved (MSR) partition =======
+create partition msr size=16
+
+rem == 3. Windows partition ========================
+rem ==    a. Create the Windows partition ==========
+create partition primary 
+
+rem ==    b. Prepare the Windows partition, FORMAT 16KB ========= 
+
+format quick unit=16K fs=ntfs label="Windows"
+
+list volume
+exit

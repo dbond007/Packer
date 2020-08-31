@@ -1,0 +1,1 @@
+pnputil /add-driver a:\pvscsi.inf /install
