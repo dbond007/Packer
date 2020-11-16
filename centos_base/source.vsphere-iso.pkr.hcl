@@ -25,7 +25,7 @@ source "vsphere-iso" "base-centos-amd64" {
         guest_os_type = "centos64Guest"
         storage {
             disk_thin_provisioned = true
-            disk_size = 32768
+            disk_size = 41984
         }
 	    #iso_paths = [
         #    var.SourceISO
