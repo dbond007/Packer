@@ -19,4 +19,5 @@ locals {
   // value. This validates that the http directory exists even before starting
   // any builder/provisioner.
   http_directory = dirname(convert(fileset(".", "etc/http/*"), list(string))[0])
+  clean_time                      = formatdate("YYMMDDhhmmss",timestamp())
 }

@@ -15,7 +15,7 @@ EOF
   // the different versions of ubuntu.
     source "source.vsphere-iso.base-ubuntu-amd64" {
     name                    = "18.04"
-    vm_name                 = "ubuntu-18.04"
+    vm_name                 = "ubuntu-18.04-${local.clean_time}"
     iso_url                 = local.iso_url_ubuntu_1804
     iso_checksum            = "file:${local.iso_checksum_url_ubuntu_1804}"
     boot_command            = local.ubuntu_1804_boot_command
@@ -24,7 +24,7 @@ EOF
   
   source "source.vsphere-iso.base-ubuntu-amd64" {
     name                    = "20.04"
-    vm_name                 = "ubuntu-20.04"
+    vm_name                 = "ubuntu-20.04-${local.clean_time}"
     iso_url                 = local.iso_url_ubuntu_2004
     iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2004}"
     boot_command            = local.ubuntu_2004_boot_command
