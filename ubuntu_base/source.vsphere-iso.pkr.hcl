@@ -25,15 +25,12 @@ source "vsphere-iso" "base-ubuntu-amd64" {
         guest_os_type = "ubuntu64Guest"
         storage {
             disk_thin_provisioned = true
-            disk_size = 32768
+            disk_size = 40960
         }
-	    #iso_paths = [
-        #    var.SourceISO
-        #]
-        boot_wait = "6s"
+        boot_wait = "5s"
     
         shutdown_command = "echo 'packer'|sudo -S shutdown -P now"
-       configuration_parameters = {
+        configuration_parameters = {
            "disk.EnableUUID" = "TRUE"
        }
     }

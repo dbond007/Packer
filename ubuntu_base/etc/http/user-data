@@ -1,25 +1,93 @@
 #cloud-config
 autoinstall:
-    version: 1
-    locale: en_US
-    identity:
-        hostname: ubuntu2004
-        password: '$6$pA5HCSUd$IbgKt21U6sfPjNq80BDxCBuzwu/nD29r1Dc1qcLKtGP6H9G9ItnwaLLQqLH1gWK10O43l0fPeosr4WrF5Tc480'
-        username: packer
-    keyboard:
-        layout: "no"
-        variant: "nb"    
-    ssh:
-        install-server: true
-        allow-pw: true
-   # packages: 
-    #    - open-vm-tools
-    storage:
-        layout:
-            name: direct
-        swap:
-            size: 0
-    user-data:
-        package_upgrade: false
-        timezone: Europe/Oslo
-        disable_root: false
+  apt:
+    geoip: true
+    preserve_sources_list: false
+    primary:
+    - arches: [amd64, i386]
+      uri: http://archive.ubuntu.com/ubuntu
+    - arches: [default]
+      uri: http://ports.ubuntu.com/ubuntu-ports
+  identity: {hostname: ubuntu2004, password: $6$5.mv4Zd3HWNWbesX$7VKfTxhmim//khiMAXgkhln0WSnIho7rO8LbV2FcCarunB7WmOLd3cjyrfG0/uFEGc5c1lEDo89253dBuYS0O0,
+    realname: packer, username: packer}
+  keyboard: {layout: 'no', toggle: null, variant: ''}
+  locale: en_US
+  network:
+    ethernets:
+      ens192: {dhcp4: true}
+    version: 2
+  ssh:
+    allow-pw: true
+    authorized-keys: []
+    install-server: true
+  user-data:
+      timezone: Europe/Oslo
+  ca-certs:
+    remove-defaults: false
+
+    # Disk setup (sizes) is controlled by packer. Current setup is created on a single drive, using LVM.
+    # Cloud-init only allows the setting of disk usage as a percentage, but curtain (ubuntu), has more advanced options.
+    # The disk layout in packer when used with ESXi is as follows:
+    # |-----------------------------------------------------|
+    # |Device    | Intended purpose  | FSoptions            |
+    # |-----------------------------------------------------|
+    # |sda       | boot              |                      |
+    # |sda       | swap              |                      |
+    # |sda       | /                 |                      |
+    # |sda       | /tmp              | nodev,nosuid,noexec  |
+    # |sda       | /var              |                      |
+    # |sda       | /var/tmp          | nodev,nosuid,noexec  |
+    # |sda       | /var/log          |                      |
+    # |sda       | /var/log/audit    |                      |
+    # |sda       | /home             | nodev                |
+    # |-----------------------------------------------------|
+  storage:
+    config:
+    - {ptable: gpt, path: /dev/sda, wipe: superblock, preserve: false, name: '', grub_device: true,
+      type: disk, id: disk-sda}
+    - {device: disk-sda, size: 1048576, flag: bios_grub, number: 1, preserve: false,
+      grub_device: false, type: partition, id: partition-5}
+    - {device: disk-sda, size: 1073741824, wipe: superblock, flag: '', number: 2,
+      preserve: false, grub_device: false, type: partition, id: partition-6}
+    - {fstype: ext4, volume: partition-6, preserve: false, type: format, id: format-11}
+    - {device: disk-sda, size: 41872785408, wipe: superblock, flag: '', number: 3,
+      preserve: false, grub_device: false, type: partition, id: partition-7}
+    - name: ubuntu-vg
+      devices: [partition-7]
+      preserve: false
+      type: lvm_volgroup
+      id: lvm_volgroup-3
+    - {name: root, volgroup: lvm_volgroup-3, size: 23618125824B, preserve: false,
+      type: lvm_partition, id: lvm_partition-9}
+    - {name: swap, volgroup: lvm_volgroup-3, size: 2147483648B, preserve: false, type: lvm_partition,
+      id: lvm_partition-10}
+    - {fstype: swap, volume: lvm_partition-10, preserve: false, type: format, id: format-13}
+    - {device: format-13, path: '', type: mount, id: mount-13}
+    - {name: tmp, volgroup: lvm_volgroup-3, size: 2147483648B, preserve: false, type: lvm_partition,
+      id: lvm_partition-11}
+    - {fstype: ext4, volume: lvm_partition-11, preserve: false, type: format, id: format-14}
+    - {name: var, volgroup: lvm_volgroup-3, size: 4294967296B, preserve: false, type: lvm_partition,
+      id: lvm_partition-12}
+    - {fstype: ext4, volume: lvm_partition-12, preserve: false, type: format, id: format-15}
+    - {name: var_tmp, volgroup: lvm_volgroup-3, size: 2147483648B, preserve: false,
+      type: lvm_partition, id: lvm_partition-13}
+    - {fstype: ext4, volume: lvm_partition-13, preserve: false, type: format, id: format-16}
+    - {name: log, volgroup: lvm_volgroup-3, size: 2147483648B, preserve: false, type: lvm_partition,
+      id: lvm_partition-14}
+    - {fstype: ext4, volume: lvm_partition-14, preserve: false, type: format, id: format-17}
+    - {name: audit, volgroup: lvm_volgroup-3, size: 1073741824B, preserve: false,
+      type: lvm_partition, id: lvm_partition-15}
+    - {fstype: ext4, volume: lvm_partition-15, preserve: false, type: format, id: format-18}
+    - {name: home, volgroup: lvm_volgroup-3, size: 4294967296B, preserve: false, type: lvm_partition,
+      id: lvm_partition-16}
+    - {fstype: ext4, volume: lvm_partition-16, preserve: false, type: format, id: format-19}
+    - {fstype: ext4, volume: lvm_partition-9, preserve: false, type: format, id: format-21}
+    - {device: format-21, path: /, type: mount, id: mount-21}
+    - {device: format-11, path: /boot, type: mount, id: mount-11}
+    - {device: format-14, path: /tmp, type: mount, id: mount-14, options: 'nodev,nosuid,noexec'}
+    - {device: format-15, path: /var, type: mount, id: mount-15}
+    - {device: format-16, path: /var/tmp, type: mount, id: mount-16, options: 'nodev,nosuid,noexec'}
+    - {device: format-17, path: /var/log, type: mount, id: mount-17}
+    - {device: format-18, path: /var/log/audit, type: mount, id: mount-18}
+    - {device: format-19, path: /home, type: mount, id: mount-19, options: 'nodev'}
+  version: 1

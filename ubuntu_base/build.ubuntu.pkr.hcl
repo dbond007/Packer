@@ -4,6 +4,8 @@ build {
 This build creates ubuntu images for ubuntu versions :
 * 18.04
 * 20.04
+* 20.10
+* 21.04
 For the following builers :
 * vsphere-iso
 EOF
@@ -26,6 +28,24 @@ EOF
     iso_url                 = local.iso_url_ubuntu_2004
     iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2004}"
     boot_command            = local.ubuntu_2004_boot_command
+    http_directory          = local.http_directory
+  }
+
+  source "source.vsphere-iso.base-ubuntu-amd64" {
+    name                    = "20.10"
+    vm_name                 = "ubuntu-20.10-${local.clean_time}"
+    boot_command            = local.ubuntu_2010_boot_command
+    http_directory          = local.http_directory
+    iso_url                 = local.iso_url_ubuntu_2010
+    iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2010}"
+  }
+
+  source "source.vsphere-iso.base-ubuntu-amd64" {
+    name                    = "21.04"
+    vm_name                 = "ubuntu-21.04-${local.clean_time}"
+    iso_url                 = local.iso_url_ubuntu_2104
+    iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2104}"
+    boot_command            = local.ubuntu_2104_boot_command
     http_directory          = local.http_directory
   }
 
