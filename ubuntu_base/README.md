@@ -30,7 +30,7 @@ To build the 20.04+ and customise via ESXi, ESXi 6.7+ is required along with cus
 
 ### Disk layout
 
-The disk layout follows the CIS recommendations for separate partitions for different system folders to reduce the impact of a rouge process writing excessive data to the drive, for example logs.
+The disk layout follows the CIS recommendations for separate partitions for different system folders to reduce the impact of a rogue process writing excessive data to the drive, for example logs.
 
 The below table represents the layout within the preseed.cfg and cloud init config files.
 

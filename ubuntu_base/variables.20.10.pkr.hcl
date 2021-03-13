@@ -7,7 +7,6 @@ locals {
   iso_checksum_url_ubuntu_2010  = "https://releases.ubuntu.com/20.10/SHA256SUMS"
   ubuntu_2010_boot_command      = [
     "<esc><esc><esc><esc>e<wait>",
-    #"<down><down><down><down><down>",
     "<del><del><del><del><del><del><del><del>",
     "<del><del><del><del><del><del><del><del>",
     "<del><del><del><del><del><del><del><del>",
