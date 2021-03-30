@@ -17,6 +17,12 @@ else
   echo "pre-up sleep 2" >> /etc/network/interfaces;
 fi
 
+if [ "$major_version" -ge "20" ]; then
+echo "Preparing for ESXi customisation, as per https://kb.vmware.com/s/article/80934"
+rm -rf /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
+rm -rf /etc/cloud/cloud.cfg.d/99-installer.cfg
+fi
+
 if [ "$major_version" -ge "16" ]; then
   # Disable Predictable Network Interface names and use eth0
   sed -i 's/en[[:alnum:]]*/eth0/g' /etc/network/interfaces;
