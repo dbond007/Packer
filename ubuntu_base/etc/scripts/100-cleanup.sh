@@ -40,7 +40,10 @@ apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 apt-get -y purge ppp pppconfig pppoeconf;
 
 # Delete oddities
-apt-get -y purge popularity-contest installation-report command-not-found friendly-recovery bash-completion fonts-ubuntu-font-family-console laptop-detect;
+apt-get -y purge popularity-contest command-not-found friendly-recovery bash-completion fonts-ubuntu-font-family-console laptop-detect;
+
+# Delete oddities, 21.04 doesnt have it so fail gracefully
+apt-get -y purge installation-report || true;
 
 # 19.10+ don't have this package so fail gracefully
 apt-get -y purge command-not-found-data || true;
