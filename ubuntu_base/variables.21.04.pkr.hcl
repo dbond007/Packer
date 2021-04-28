@@ -3,9 +3,8 @@ variable "ubuntu_2104_version" {
 }
 
 locals {
-  # Currently 21.04 is pre release, daily builds
-  iso_url_ubuntu_2104           = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/hirsute-live-server-amd64.iso"
-  iso_checksum_url_ubuntu_2104  = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/SHA256SUMS"
+  iso_url_ubuntu_2104           = "https://releases.ubuntu.com/21.04/ubuntu-21.04-live-server-amd64.iso"
+  iso_checksum_url_ubuntu_2104  = "https://releases.ubuntu.com/21.04/SHA256SUMS"
   ubuntu_2104_boot_command      = [
     "<esc><esc><esc><esc>e<wait>",
     "<del><del><del><del><del><del><del><del>",
