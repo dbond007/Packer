@@ -2,7 +2,7 @@ build {
   name = "centos"
   description = <<EOF
 This build creates ubuntu images for centos versions :
-* 8.2
+* 8.3
 For the following builers :
 * vsphere-iso
 EOF
@@ -11,11 +11,11 @@ EOF
   // source.builder-type.pkr.hcl files, here we only set the fields specific to
   // the different versions of centos.
     source "source.vsphere-iso.base-centos-amd64" {
-    name                    = "8.2"
-    vm_name                 = "centos-8.2"
-    iso_url                 = local.iso_url_centos_82
-    iso_checksum            = "file:${local.iso_checksum_url_centos_82}"
-    boot_command            = local.centos_82_boot_command
+    name                    = "8.3"
+    vm_name                 = "centos-8.3"
+    iso_url                 = local.iso_url_centos_83
+    iso_checksum            = "file:${local.iso_checksum_url_centos_83}"
+    boot_command            = local.centos_83_boot_command
     http_directory          = local.http_directory
   }
 
