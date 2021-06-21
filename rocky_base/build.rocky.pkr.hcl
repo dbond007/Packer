@@ -2,7 +2,7 @@ build {
   name = "rocky"
   description = <<EOF
 This build creates rocky linux versions :
-* 8.3
+* 8.4
 For the following builers :
 * vsphere-iso
 EOF
@@ -11,11 +11,11 @@ EOF
   // source.builder-type.pkr.hcl files, here we only set the fields specific to
   // the different versions of rocky.
     source "source.vsphere-iso.base-rocky-amd64" {
-    name                    = "8.3"
-    vm_name                 = "rocky-8.3"
-    iso_url                 = local.iso_url_rocky_83
-    iso_checksum            = "file:${local.iso_checksum_url_rocky_83}"
-    boot_command            = local.rocky_83_boot_command
+    name                    = "8.4"
+    vm_name                 = "rocky-8.4"
+    iso_url                 = local.iso_url_rocky_84
+    iso_checksum            = "file:${local.iso_checksum_url_rocky_84}"
+    boot_command            = local.rocky_84_boot_command
     http_directory          = local.http_directory
   }
 
