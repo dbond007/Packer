@@ -22,6 +22,7 @@ locals {
   iso_url_vmware_drivers          = "[NFS01] ISOs/VMware_pvscsi.iso"
   iso_checksum_url_vmware_drivers = ""
   win_2k19_boot_command           = ["<enter>","<enter>"]
+  clean_time                      = formatdate("YYMMDDhhmmss",timestamp())
 }
 
 variable "VCenter" {

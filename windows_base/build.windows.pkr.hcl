@@ -13,7 +13,7 @@ EOF
   // the different versions of centos.
     source "source.vsphere-iso.base-windows-amd64" {
         name                    = "2019std_core"
-        vm_name                 = "windows2k19std-core"
+        vm_name                 = "windows2k19std-core-${local.clean_time}"
         #iso_url                 = local.iso_url_win_2k19
         #iso_checksum            = "file:${local.iso_checksum_url_win_2k19}"
         boot_command            = local.win_2k19_boot_command
@@ -32,7 +32,7 @@ EOF
 
     source "source.vsphere-iso.base-windows-amd64" {
         name                    = "2019std"
-        vm_name                 = "windows2k19std"
+        vm_name                 = "windows2k19std-${local.clean_time}"
         #iso_url                 = local.iso_url_win_2k19
         #iso_checksum            = "file:${local.iso_checksum_url_win_2k19}"
         boot_command            = local.win_2k19_boot_command
