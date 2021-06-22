@@ -12,7 +12,7 @@ EOF
   // the different versions of rocky.
     source "source.vsphere-iso.base-rocky-amd64" {
     name                    = "8.4"
-    vm_name                 = "rocky-8.4"
+    vm_name                 = "rocky-8.4-${local.clean_time}"
     iso_url                 = local.iso_url_rocky_84
     iso_checksum            = "file:${local.iso_checksum_url_rocky_84}"
     boot_command            = local.rocky_84_boot_command
