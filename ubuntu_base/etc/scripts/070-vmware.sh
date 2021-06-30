@@ -10,4 +10,13 @@ vmware-iso|vmware-vmx|vsphere-iso|vsphere-clone)
     systemctl enable open-vm-tools
     systemctl start open-vm-tools
     echo "platform specific vmware.sh executed";
+
+    echo "Disabling cloud-init, as per https://kb.vmware.com/s/article/59557"
+    echo "disable_vmware_customization: true" >> /etc/cloud/cloud.cfg
+cat <<EOF >/etc/cloud/cloud.cfg.d/80_disable_network.cfg;
+network:
+    config: disabled
+EOF
+
+
 esac
