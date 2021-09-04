@@ -76,6 +76,12 @@ find /var/log -type f -exec truncate --size=0 {} \;
 # Blank netplan machine-id (DUID) so machines get unique ID generated on boot.
 truncate -s 0 /etc/machine-id
 
+# Remove cloud-init
+apt-get purge cloud-init -y
+rm -rf /etc/cloud/ && sudo rm -rf /var/lib/cloud/
+rm -f /etc/netplan/00-installer-config.yaml
+rm -f /etc/netplan/50-cloud-init.yaml
+
 # remove the contents of /tmp and /var/tmp
 rm -rf /tmp/* /var/tmp/*
 
