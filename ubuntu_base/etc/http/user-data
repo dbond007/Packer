@@ -8,20 +8,24 @@ autoinstall:
       uri: http://archive.ubuntu.com/ubuntu
     - arches: [default]
       uri: http://ports.ubuntu.com/ubuntu-ports
-  identity: {hostname: ubuntu2004, password: $6$5.mv4Zd3HWNWbesX$7VKfTxhmim//khiMAXgkhln0WSnIho7rO8LbV2FcCarunB7WmOLd3cjyrfG0/uFEGc5c1lEDo89253dBuYS0O0,
-    realname: packer, username: packer}
+  identity: {hostname: ubuntu2004, password: $6$VurgNFGPNvJYyJ41$mwXUNR4OzBrpjz3k7oj0LuF6c5vKQnmwgth6Bsp5E5HRXPPsBKYd55ALWVg/PpS2w6FAyJLbVYyngKDvLZxwQ.,
+  #identity: {hostname: ubuntu2004, password: $6$5.mv4Zd3HWNWbesX$7VKfTxhmim//khiMAXgkhln0WSnIho7rO8LbV2FcCarunB7WmOLd3cjyrfG0/uFEGc5c1lEDo89253dBuYS0O0,
+    #realname: packer, username: packer}
+    realname: andresdiezsola, username: andresdiezsola}
   keyboard: {layout: 'no', toggle: null, variant: ''}
   locale: en_US
   network:
     ethernets:
-      ens192: {dhcp4: true}
+     ens192: {dhcp4: true}
+        dhcp4: true
+        dhcp-identifier: mac
     version: 2
   ssh:
     allow-pw: true
     authorized-keys: []
     install-server: true
   user-data:
-      timezone: Europe/Oslo
+      timezone: Europe/Madrid
   ca-certs:
     remove-defaults: false
 
