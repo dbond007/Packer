@@ -1,11 +1,11 @@
-variable "ubuntu_2110_version" {
-  default = "21.10"
+variable "ubuntu_2204_version" {
+  default = "22.04"
 }
 
 locals {
-  iso_url_ubuntu_2110           = "https://releases.ubuntu.com/21.10/ubuntu-21.10-live-server-amd64.iso"
-  iso_checksum_url_ubuntu_2110  = "https://releases.ubuntu.com/21.10/SHA256SUMS"
-  ubuntu_2110_boot_command      = [
+  iso_url_ubuntu_2204           = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/jammy-live-server-amd64.iso"
+  iso_checksum_url_ubuntu_2204  = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/SHA256SUMS"
+  ubuntu_2204_boot_command      = [
     "<esc><esc><esc><esc>e<wait>",
     "<del><del><del><del><del><del><del><del>",
     "<del><del><del><del><del><del><del><del>",
