@@ -3,8 +3,8 @@ variable "ubuntu_2204_version" {
 }
 
 locals {
-  iso_url_ubuntu_2204           = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/jammy-live-server-amd64.iso"
-  iso_checksum_url_ubuntu_2204  = "http://cdimage.ubuntu.com/ubuntu-server/daily-live/current/SHA256SUMS"
+  iso_url_ubuntu_2204           = "https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso"
+  iso_checksum_url_ubuntu_2204  = "https://releases.ubuntu.com/22.04/SHA256SUMS"
   ubuntu_2204_boot_command      = [
     "<esc><esc><esc><esc>e<wait>",
     "<del><del><del><del><del><del><del><del>",
