@@ -24,7 +24,7 @@ The structure of the code is:
 </pre>
 
 ## Ubuntu template 
-This will build an 18.04, 20.04.2 and 20.10, 21.04 and 21.10 daily template for ESXi
+This will build an 18.04, 20.04.2 and 20.10, 21.04, 21.10 and 22.04 template for ESXi
 
 To clone from template and customise via ESXi, ESXi 6.7+ is required, more specifically, 20.04.2 (ESXi 6.7U3g+) and 20.10 (ESXi 7+) and 21.04. On the initial build the cloud-init config is sourced from http.
 

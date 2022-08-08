@@ -7,6 +7,7 @@ This build creates ubuntu images for ubuntu versions :
 * 20.10
 * 21.04
 * 21.10
+* 22.04
 For the following builers :
 * vsphere-iso
 EOF
@@ -56,6 +57,15 @@ EOF
     iso_url                 = local.iso_url_ubuntu_2110
     iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2110}"
     boot_command            = local.ubuntu_2110_boot_command
+    http_directory          = local.http_directory
+  }
+
+  source "source.vsphere-iso.base-ubuntu-amd64" {
+    name                    = "22.04"
+    vm_name                 = "ubuntu-22.04-${local.clean_time}"
+    iso_url                 = local.iso_url_ubuntu_2204
+    iso_checksum            = "file:${local.iso_checksum_url_ubuntu_2204}"
+    boot_command            = local.ubuntu_2204_boot_command
     http_directory          = local.http_directory
   }
 
